@@ -24,6 +24,6 @@ class Watchlist:
                     print("DEBUG --> BANNING " + s.ip_addr)
                     subprocess.call("ufw delete allow ssh", shell=True)
                     subprocess.call("ufw deny from " + addr, shell=True)
-                    subprocess.call("ufw allow ssh")
+                    subprocess.call("ufw allow ssh", shell=True)
                 return
         self.suspects.append(Suspect(addr, timestamp))

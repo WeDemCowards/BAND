@@ -30,6 +30,7 @@ lenny:nascar
 ### 3. Testing
 - enable ufw, set sensible defaults if you want.
 	- start from blank ufw
-	- 
+	- `ufw default deny incoming`
+	- `ufw allow ssh` *this part is actually very critical, because BAND is janky as fuck lol*
 - Start SSH service. No need to change config.
 - Launch a brute force attack with and without BAND enabled.
