@@ -6,31 +6,19 @@ A program that monitors linux ssh logs and ban any IP address exhibiting suspici
     - Will be written to work with systemd and ufw.
 	- No need for timed bans or complex analysis, a simple permaban after too many failed attempts will do.
 
-Defining failed events:
-- User unknown
-- Failed Password
-
-Ban threshold:
-- Configurable. Default is 15 flags within 5 minutes.
 
 ## VM Testing
+*Testing in Debian*
 
-### 1. Users
-```
-root:klondike
-aaron:worksucks
-kenny:chelsea
-lenny:nascar
-```
+1. Add users with crackable passwords
 
-### 2. Packages
-- Install openssh-server
-- Install ufw
-
-### 3. Testing
-- enable ufw, set sensible defaults if you want.
+2. Install necessary packages
+	- openssh-server
+	- ufw
+	
+3. Configure ufw and enable
 	- start from blank ufw
 	- `ufw default deny incoming`
-	- `ufw allow ssh` *this part is actually very critical, because BAND is janky as fuck lol*
-- Start SSH service. No need to change config.
-- Launch a brute force attack with and without BAND enabled.
+	- `ufw allow ssh` *this needs to be written exactly so, since BAND is janky and needs to be able to delete this* (lol)
+
+4. Start SSHD and attempt a brute force attack
