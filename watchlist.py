@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import subprocess
 
 class Suspect:
     def __init__(self, ip_addr: str, timestamp):
@@ -20,7 +21,7 @@ class Watchlist:
                 s.timestamps.append(timestamp)
                 s.cull_timestamps(datetime.now() - timedelta(seconds=self.timeframe))
                 if len(s.timestamps) > self.threshold:
-                    # ban_ip(s.ip_addr)
-                    print("DEBUG --> AT THIS POINT " + s.ip_addr + " WOULD BE BANNED!")
+                    print("DEBUG --> BANNING " + s.ip_addr)
+                    subprocess.call("ufw deny from " + addr)
                 return
         self.suspects.append(Suspect(addr, timestamp))

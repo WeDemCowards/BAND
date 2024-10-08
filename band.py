@@ -1,5 +1,9 @@
+# Welcome to BAND (B&)
+# BAND Apprehends Network Deviants
+
 from systemd import journal
 import datetime
+import os
 import re
 from watchlist import Watchlist
 
@@ -7,7 +11,12 @@ def extract_ip(text: str):
     ip_pattern = r'\b(?:\d{1,3}\.){3}\d{1,3}\b'
     match = re.search(ip_pattern, text)
     return match.group(0) if match else None
-
+    
+# check if user is root
+if os.getuid() != 0:
+    print("BAND requires root access.")
+    print("USAGE: sudo python3 BAND.py")
+    
 # 15 flags within 5 minutes will result in a ban
 threshold = 15
 timeframe = 300
@@ -25,6 +34,7 @@ j.log_level(journal.LOG_INFO)
 j.add_match(SYSLOG_IDENTIFIER="sshd")       # debian
 
 # start processing incoming sshd logs
+print("Ensure ufw is enabled.")
 print("Scanning logs for anomalies (Ctrl+C to exit)")
 while True:
     for entry in j:

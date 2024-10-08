@@ -14,7 +14,7 @@ Ban threshold:
 - "Too many" failed attempts in a short amount of time.
 - This will be hardcoded and not configurable.
 
-## VM Teting
+## VM Testing
 
 ### 1. Users
 ```
@@ -24,7 +24,11 @@ kenny:chelsea
 lenny:nascar
 ```
 
-### 2. SSH
+### 2. Packages
 - Install openssh-server
+- Install ufw
+
+### 3. Testing
+- enable ufw, set sensible defaults if you want.
 - Start SSH service. No need to change config.
-- Install ufw enable, set sensible defaults if you want.
+- Launch a brute force attack with and without BAND enabled.
