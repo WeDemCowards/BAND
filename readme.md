@@ -14,6 +14,17 @@ Ban threshold:
 - "Too many" failed attempts in a short amount of time.
 - This will be hardcoded and not configurable.
 
-## To-do:
-- [x] Actually get started
-- [ ] Finish (lol)
+## VM Teting
+
+### 1. Users
+```
+root:klondike
+aaron:worksucks
+kenny:chelsea
+lenny:nascar
+```
+
+### 2. SSH
+- Install openssh-server
+- Start SSH service. No need to change config.
+- Install ufw enable, set sensible defaults if you want.
