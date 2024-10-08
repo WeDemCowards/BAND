@@ -1,7 +1,7 @@
 from systemd import journal
 import datetime
 import re
-import watchlist
+from watchlist import Watchlist
 
 def extract_ip(text: str):
     ip_pattern = r'\b(?:\d{1,3}\.){3}\d{1,3}\b'
