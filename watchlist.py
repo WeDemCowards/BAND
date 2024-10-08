@@ -22,6 +22,8 @@ class Watchlist:
                 s.cull_timestamps(datetime.now() - timedelta(seconds=self.timeframe))
                 if len(s.timestamps) > self.threshold:
                     print("DEBUG --> BANNING " + s.ip_addr)
-                    subprocess.call("ufw deny from " + addr)
+                    subprocess.call("ufw delete allow ssh", shell=True)
+                    subprocess.call("ufw deny from " + addr, shell=True)
+                    subprocess.call("ufw allow ssh")
                 return
         self.suspects.append(Suspect(addr, timestamp))

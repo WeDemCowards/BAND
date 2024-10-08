@@ -15,7 +15,7 @@ def extract_ip(text: str):
 # check if user is root
 if os.getuid() != 0:
     print("BAND requires root access.")
-    print("USAGE: sudo python3 BAND.py")
+    exit("USAGE: sudo python3 BAND.py")
     
 # 15 flags within 5 minutes will result in a ban
 threshold = 15
@@ -24,14 +24,14 @@ timeframe = 300
 # holds IP addresses and timestamps
 watchlist = Watchlist(threshold, timeframe)
 
-# open systemd journal and start at the bottom, looking for sshd.service logs
+# open systemd journal and start at the bottom, looking for sshd logs
 j = journal.Reader()
 j.this_boot()
 j.seek_tail()
 j.get_previous()
 j.log_level(journal.LOG_INFO)
 # j.add_match(_SYSTEMD_UNIT="sshd.service") # arch
-j.add_match(SYSLOG_IDENTIFIER="sshd")       # debian
+j.add_match(SYSLOG_IDENTIFIER="sshd")       # debian (don't ask me why these are different by default)
 
 # start processing incoming sshd logs
 print("Ensure ufw is enabled.")
