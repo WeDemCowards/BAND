@@ -18,9 +18,9 @@ class Watchlist:
         for s in self.suspects:
             if s.ip_addr == addr:
                 s.timestamps.append(timestamp)
-                s.cull_timestamps(datetime.now() - timedelta(seconds=timeframe))
+                s.cull_timestamps(datetime.now() - timedelta(seconds=self.timeframe))
                 if len(s.timestamps) > self.threshold:
                     # ban_ip(s.ip_addr)
-                    print("AT THIS POINT THE IP " + s.ip_addr + " WOULD BE BANNED!")
+                    print("DEBUG --> AT THIS POINT " + s.ip_addr + " WOULD BE BANNED!")
                 return
         self.suspects.append(Suspect(addr, timestamp))

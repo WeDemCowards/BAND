@@ -21,12 +21,15 @@ j.this_boot()
 j.seek_tail()
 j.get_previous()
 j.log_level(journal.LOG_INFO)
-j.add_match(_SYSTEMD_UNIT="sshd.service")
+# j.add_match(_SYSTEMD_UNIT="sshd.service") # arch
+j.add_match(SYSLOG_IDENTIFIER="sshd")       # debian
 
 # start processing incoming sshd logs
 print("Scanning logs for anomalies (Ctrl+C to exit)")
 while True:
     for entry in j:
+        print("DEBUG  -->  " + entry['MESSAGE'])
         if entry['MESSAGE'].__contains__("Failed password"):
+            print("DEBUG  -->  BINK")
             ip = extract_ip(entry['MESSAGE'])
-            watchlist.add_timestamp(ip, datetime.now())
+            watchlist.add_timestamp(ip, datetime.datetime.now())
