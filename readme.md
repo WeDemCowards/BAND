@@ -1,5 +1,7 @@
 # BAND
 
+**BAND APPREHENDS NETWORK DEVIANTS!**
+
 A program that monitors linux ssh logs and ban any IP address exhibiting suspicious behaviour.
 
 - Scope will be limited.
