@@ -6,19 +6,29 @@ A program that monitors linux ssh logs and ban any IP address exhibiting suspici
     - Will be written to work with systemd and ufw.
 	- No need for timed bans or complex analysis, a simple permaban after too many failed attempts will do.
 
+# Testing Brute force attacks
 
-## VM Testing
-*Testing in Debian*
+You should have two virtual machines, an attacker(kali) and a victim. (victim is preferably debian or debian based)
+If you are attempting to make this work on a machine that is not debian, you may run into problems. Message me if you need a hand!
 
-1. Add users with crackable passwords
+- Victim:
+    - Add users to victim machine with `adduser` and `passwd`.
+        - Passwords should be weak, check a common password list.
+    - install necessary packages
+        - openssh-server
+        - ufw
+        - python3-systemd
+    - open ssh server with `sudo systemctl enable sshd`
+    - configure ufw
+        - `sudo ufw default deny incoming`
+        - `sudo ufw allow ssh`
+        - `sudo ufw enable`
+    - At this point you can decide if you want to test a brute force with or without the tool.
+        - If you are using the tool, `sudo python3 band.py` will monitor logs for you.
+        - If not, you can still monitor logs with `sudo journalctl -t sshd -f`
 
-2. Install necessary packages
-	- openssh-server
-	- ufw
-	
-3. Configure ufw and enable
-	- start from blank ufw
-	- `ufw default deny incoming`
-	- `ufw allow ssh` *this needs to be written exactly so, since BAND is janky and needs to be able to delete this* (lol)
-
-4. Start SSHD and attempt a brute force attack
+- Attacker:
+    - Prepare a password list. You can find plenty at /usr/share/wordlists on kali.
+    - To launch a brute force attack use the following command
+        - `hydra -l <login> -P <password_list.txt> -t 6 ssh://<VICTIM_IP_ADDRESS>`
+    - This could take a long time depending on the strength of the victim's password.
