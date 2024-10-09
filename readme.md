@@ -11,6 +11,13 @@ A program that monitors linux ssh logs and ban any IP address exhibiting suspici
 You should have two virtual machines, an attacker(kali) and a victim. (victim is preferably debian or debian based)
 If you are attempting to make this work on a machine that is not debian, you may run into problems. Message me if you need a hand!
 
+### Configure machines on NAT Network
+For the machines to be able to interact, they have to be on the same virtual network.
+
+In Virtualbox, set up a NAT network:
+- Navigate to tools > NAT Networks and use the Create button.
+- In each machine's settings, set "Attached to:" to NAT Network, and make sure the Name is correct.
+
 ### Victim
 
 - Add users to victim machine with `adduser` and `passwd`.
